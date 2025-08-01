@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Audio Player</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f7f7f7;
+    }
+
+    .player-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #007BFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+
+    .player-button:hover {
+      background-color: #0056b3;
+    }
+
+    .icon {
+      width: 0;
+      height: 0;
+      border-left: 18px solid white;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+    }
+
+    .icon.pause {
+      border: none;
+      width: 16px;
+      height: 20px;
+      background: white;
+      position: relative;
+    }
+
+    .icon.pause::before, .icon.pause::after {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 20px;
+      background: white;
+    }
+
+    .icon.pause::before {
+      left: 0;
+    }
+
+    .icon.pause::after {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="player-button" id="playerBtn">
+    <div class="icon" id="icon"></div>
+  </div>
+
+  <audio id="audio" src="https://raw.githubusercontent.com/CLHY77/Audio-Player/a6d97ad78d6286e98b824f46e6e2df39d2a7d767/Blue%20-%20Yung%20Kai%20Piano%20Version%20by%20James%20Wong.mp3"></audio>
+
+  <script>
+    const playerBtn = document.getElementById('playerBtn');
+    const audio = document.getElementById('audio');
+    const icon = document.getElementById('icon');
+
+    function setToPlayIcon() {
+      icon.className = 'icon';
+    }
+
+    function setToPauseIcon() {
+      icon.className = 'icon pause';
+    }
+
+    playerBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        setToPauseIcon();
+      } else {
+        audio.pause();
+        setToPlayIcon();
+      }
+    });
+
+    audio.addEventListener('ended', setToPlayIcon);
+  </script>
+
+</body>
+</html>
